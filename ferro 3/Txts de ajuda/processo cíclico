@@ -1,0 +1,15 @@
+new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() 
+                    {
+                        // para acessar componentes da interface (GUI)
+                        Platform.runLater(new Runnable() 
+                        {
+                            @Override
+                            public void run() {
+                                label.setText("" + LocalTime.now().getSecond());
+                            }
+                         });
+                    }
+                }, 0, 5000); 

@@ -1,0 +1,17 @@
+private void gerarRelatorio(String sql, String relat, String titulotela)
+{
+        try {  //sql para obter os dados para o relatorio
+            ResultSet rs = Banco.con.consultar(sql);
+            //implementação da interface JRDataSource para DataSource ResultSet
+            JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+            //preenchendo e chamando o relatório
+            String jasperPrint = JasperFillManager.fillReportToFile(relat, null, jrRS);
+            JasperViewer viewer = new JasperViewer(jasperPrint, false, false);
+            
+            viewer.setExtendedState(JasperViewer.MAXIMIZED_BOTH);//maximizado
+            viewer.setTitle(titulotela);
+            viewer.setVisible(true);
+        } catch (JRException erro) {
+            System.out.println(erro);
+        }
+    } 

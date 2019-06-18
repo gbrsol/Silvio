@@ -1,0 +1,13 @@
+Instale o aplicativo helndoc localizado em: https://www.helpndoc.com/download
+Com o helpndoc crie um arquivo de de help, segmentado em tópicos.
+Gere o arquivo .chm e copie-o para a pasta ajuda do seu sistema <seu sistema/ajuda>
+Execute o arquivo de help com o seguinte código:
+
+        File file = new File("ajuda/help.chm");
+        try {
+            Runtime.getRuntime().exec("HH.EXE ms-its:" + file.getAbsolutePath() + "::/cadastro.htm");
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+Obs: cadastro.htm é um dos tópicos de seu arquivo de help.
+

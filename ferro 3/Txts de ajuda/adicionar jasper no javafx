@@ -1,0 +1,25 @@
+private void gerarRelatorio(String sql, String relat) {
+        try {  //sql para obter os dados para o relatorio
+            ResultSet rs = Banco.con.consultar(sql);
+            //implementação da interface JRDataSource para DataSource ResultSet
+            JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+            //preenchendo e chamando o relatório
+            JasperPrint print = JasperFillManager.fillReport(relat, null, jrRS);
+            // cria painel de visualização do relatório (usa Swing)
+            JRViewer viewer = new JRViewer(print);
+            viewer.setOpaque(true);
+            viewer.setVisible(true);
+            viewer.setZoomRatio(0.5f);
+            
+            //permite utilizar componente do swing no JavaFX            
+            SwingNode swingNode = new SwingNode();
+            SwingUtilities.invokeLater(()->{swingNode.setContent(viewer);});
+                       
+            // adicionando um painel swing no HBOX
+            pnDados.getChildren().clear();
+            pnDados.getChildren().add(swingNode);
+            
+        } catch (JRException erro) {
+            System.out.println(erro);
+        }
+    } 
